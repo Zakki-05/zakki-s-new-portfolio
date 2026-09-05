@@ -80,7 +80,7 @@ export default function App() {
       </main>
 
       {/* 09 — FOOTER */}
-      <FooterEditorial />
+      <FooterEditorial onOpenResume={() => setIsResumeOpen(true)} />
 
       {/* Resume Document Preview Modal */}
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
