@@ -35,7 +35,7 @@ export default function About() {
             </div>
 
             <h3 className="text-2xl font-bold text-white tracking-wide">
-              Frontend Developer Driven by <span className="text-accentEmerald">Building Real Projects</span>
+              Python Full Stack & React.js Developer Driven by <span className="text-accentEmerald">Building Real Projects</span>
             </h3>
 
             <p className="text-textMuted text-base sm:text-lg leading-relaxed">
@@ -61,8 +61,8 @@ export default function About() {
                 </div>
                 <div>
                   <h4 className="text-xs font-mono text-textMuted uppercase tracking-wider">Primary Focus</h4>
-                  <p className="text-sm font-semibold text-white">Frontend & Web Dev</p>
-                  <p className="text-xs text-textMuted">Responsive UI & React Applications</p>
+                  <p className="text-sm font-semibold text-white">Full Stack & React Dev</p>
+                  <p className="text-xs text-textMuted">Python, Django, React.js & REST APIs</p>
                 </div>
               </div>
             </div>

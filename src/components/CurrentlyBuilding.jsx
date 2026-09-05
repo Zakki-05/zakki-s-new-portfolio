@@ -22,7 +22,7 @@ export default function CurrentlyBuilding() {
             </h2>
 
             <p className="text-textMuted text-base leading-relaxed">
-              I'm continuing to strengthen my frontend development skills while expanding into backend development, APIs, databases and AI-powered applications.
+              I'm continuously strengthening my Python Full Stack & React.js expertise by building production-grade web applications, REST APIs, database schemas, and AI integrations.
             </p>
           </div>
 

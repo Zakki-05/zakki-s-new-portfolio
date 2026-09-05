@@ -48,7 +48,7 @@ export default function Preloader({ onComplete }) {
               ZAKKI.DEV
             </h1>
             <p className="text-xs font-mono text-mutedText uppercase tracking-widest">
-              FRONTEND DEVELOPER • PERNAMBUT, TAMIL NADU, INDIA
+              PYTHON FULL STACK & REACT.JS DEVELOPER • PERNAMBUT, TAMIL NADU, INDIA
             </p>
           </div>
 

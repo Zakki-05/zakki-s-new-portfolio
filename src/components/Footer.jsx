@@ -34,7 +34,7 @@ export default function Footer() {
               ZAKKI<span className="text-accentEmerald">.DEV</span>
             </a>
             <p className="text-xs text-textMuted max-w-sm leading-relaxed">
-              Frontend Developer & BCA Graduate from Tamil Nadu, India. Passionate about building clean, responsive, and practical web applications.
+              Python Full Stack & React.js Developer & BCA Graduate from Tamil Nadu, India. Passionate about building clean, scalable backends and dynamic web applications.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-textMuted pt-1">
               <MapPin className="w-3.5 h-3.5 text-accentEmerald" />

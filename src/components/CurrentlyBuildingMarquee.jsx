@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function CurrentlyBuildingMarquee() {
   const marqueeText = [
-    'MOTION DESIGN +',
-    'UI/UX +',
+    'PYTHON FULL STACK +',
+    'REACT.JS +',
+    'DJANGO & REST APIs +',
     'INTERACTION +',
-    'FRONTEND +',
     'DEVELOPMENT +'
   ];
 

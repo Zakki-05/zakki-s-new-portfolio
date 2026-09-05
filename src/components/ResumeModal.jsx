@@ -28,7 +28,7 @@ export default function ResumeModal({ isOpen, onClose }) {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">RESUME PREVIEW</h3>
-                <p className="text-xs font-mono text-textMuted">{personalData.name} — Frontend Developer</p>
+                <p className="text-xs font-mono text-textMuted">{personalData.name} — Python Full Stack & React.js Developer</p>
               </div>
             </div>
 
@@ -104,19 +104,19 @@ export default function ResumeModal({ isOpen, onClose }) {
               <div className="grid sm:grid-cols-2 gap-3 text-xs">
                 <div className="p-3 rounded-lg bg-white/5">
                   <strong className="text-white font-mono block mb-1">Languages:</strong>
-                  <span className="text-textMuted">Java, Python, JavaScript, PHP</span>
+                  <span className="text-textMuted">Python, JavaScript (ES6+), Java</span>
                 </div>
                 <div className="p-3 rounded-lg bg-white/5">
-                  <strong className="text-white font-mono block mb-1">Web Development:</strong>
-                  <span className="text-textMuted">HTML5, CSS3, Bootstrap, JavaScript, React.js (Exploring)</span>
+                  <strong className="text-white font-mono block mb-1">Frontend Engineering:</strong>
+                  <span className="text-textMuted">React.js, HTML5, CSS3, Tailwind CSS, Bootstrap</span>
                 </div>
                 <div className="p-3 rounded-lg bg-white/5">
-                  <strong className="text-white font-mono block mb-1">Backend & Database:</strong>
-                  <span className="text-textMuted">Django, Node.js & Express (Exploring), MySQL</span>
+                  <strong className="text-white font-mono block mb-1">Backend & REST APIs:</strong>
+                  <span className="text-textMuted">Django, Flask, FastAPI, Node.js & Express.js</span>
                 </div>
                 <div className="p-3 rounded-lg bg-white/5">
-                  <strong className="text-white font-mono block mb-1">Tools & CS Fundamentals:</strong>
-                  <span className="text-textMuted">Git, GitHub, Netlify, Data Structures, OOP, DBMS</span>
+                  <strong className="text-white font-mono block mb-1">Databases & Tools:</strong>
+                  <span className="text-textMuted">MySQL, PostgreSQL, Git, GitHub, Vercel, Netlify</span>
                 </div>
               </div>
             </div>

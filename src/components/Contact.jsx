@@ -238,7 +238,7 @@ export default function Contact() {
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Hi Zakki, I'd like to discuss a frontend opportunity..."
+                  placeholder="Hi Zakki, I'd like to discuss a Python Full Stack / React.js opportunity..."
                   className={`w-full px-4 py-3 rounded-xl bg-black/40 border ${
                     errors.message ? 'border-red-500' : 'border-white/10 focus:border-accentEmerald'
                   } text-white placeholder-textMuted/50 text-sm focus:outline-none transition-all resize-none`}

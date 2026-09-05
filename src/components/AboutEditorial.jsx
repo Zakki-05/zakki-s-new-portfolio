@@ -104,7 +104,7 @@ export default function AboutEditorial() {
             </h3>
 
             <p className="text-mutedText text-base sm:text-lg font-body leading-relaxed">
-              I'm Mohammed Zakki Adnaan, a BCA graduate and Frontend Developer passionate about building clean, responsive and user-friendly web applications.
+              I'm Mohammed Zakki Adnaan, a BCA graduate, Python Full Stack Developer, and React.js Developer passionate about building robust backend architectures, REST APIs, and dynamic user-friendly web applications.
             </p>
 
             {/* Bottom Information Grid */}
@@ -121,7 +121,7 @@ export default function AboutEditorial() {
                 <span className="text-[10px] text-goldAccent font-bold uppercase tracking-widest block">
                   FOCUS
                 </span>
-                <p className="text-xs font-semibold text-primaryText">WEB / FRONTEND DEVELOPMENT</p>
+                <p className="text-xs font-semibold text-primaryText">PYTHON FULL STACK & REACT.JS</p>
               </div>
 
               <div className="space-y-1">

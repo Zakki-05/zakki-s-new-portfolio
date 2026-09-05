@@ -6,38 +6,38 @@ import { gsap } from 'gsap';
 const expertiseList = [
   {
     num: '01',
-    title: 'Creative Development',
-    desc: 'Building fast, responsive and scalable frontend experiences.',
-    icon: Code
+    title: 'Python Full Stack',
+    desc: 'Architecting robust Python backends with Django, Flask & RESTful API endpoints.',
+    icon: Server
   },
   {
     num: '02',
-    title: 'Motion & Interaction',
-    desc: 'Creating interactive experiences with meaningful motion.',
-    icon: Terminal
+    title: 'React.js Engineering',
+    desc: 'Building fast, dynamic, and component-driven React interfaces with modern JS.',
+    icon: Cpu
   },
   {
     num: '03',
-    title: 'UI / UX Design',
-    desc: 'Creating clean interfaces with strong hierarchy and usability.',
-    icon: Layout
+    title: 'Database & API Architecture',
+    desc: 'Designing relational database models, MySQL queries, and clean web APIs.',
+    icon: Database
   },
   {
     num: '04',
-    title: 'Modern Web Apps',
-    desc: 'Building interactive applications using modern web technologies.',
-    icon: Server
+    title: 'UI/UX & Web Performance',
+    desc: 'Crafting responsive design layouts, smooth interactive states, and fast page loads.',
+    icon: Layout
   }
 ];
 
 const floatingLogos = [
-  { name: 'HTML5', icon: Layout, top: '10%', left: '5%', color: '#E34F26' },
-  { name: 'CSS3', icon: Code, top: '25%', right: '8%', color: '#1572B6' },
-  { name: 'JavaScript', icon: FileCode, top: '48%', left: '3%', color: '#F7DF1E' },
-  { name: 'React', icon: Cpu, top: '65%', right: '6%', color: '#61DAFB' },
-  { name: 'Node.js', icon: Server, top: '80%', left: '7%', color: '#339933' },
+  { name: 'Python', icon: FileCode, top: '10%', left: '4%', color: '#3776AB' },
+  { name: 'React', icon: Cpu, top: '25%', right: '6%', color: '#61DAFB' },
+  { name: 'JavaScript', icon: Code, top: '48%', left: '3%', color: '#F7DF1E' },
+  { name: 'Django', icon: Server, top: '65%', right: '7%', color: '#092E20' },
+  { name: 'MySQL', icon: Database, top: '80%', left: '6%', color: '#4479A1' },
   { name: 'Git', icon: GitBranch, top: '88%', right: '12%', color: '#F05032' },
-  { name: 'GitHub', icon: Github, top: '35%', right: '15%', color: '#FFFFFF' },
+  { name: 'GitHub', icon: Github, top: '35%', right: '14%', color: '#FFFFFF' },
 ];
 
 export default function ExpertiseRows() {

@@ -183,15 +183,15 @@ export default function Hero({ onOpenResume }) {
                 <code>
                   <span className="text-accentPurple">const</span> <span className="text-accentCyan">developer</span> = &#123;<br />
                   &nbsp;&nbsp;<span className="text-emerald-400">name</span>: <span className="text-amber-300">"{personalData.name}"</span>,<br />
-                  &nbsp;&nbsp;<span className="text-emerald-400">role</span>: <span className="text-amber-300">"Frontend Developer"</span>,<br />
+                  &nbsp;&nbsp;<span className="text-emerald-400">role</span>: <span className="text-amber-300">"Python Full Stack & React.js Developer"</span>,<br />
                   &nbsp;&nbsp;<span className="text-emerald-400">education</span>: <span className="text-amber-300">"BCA Graduate (Islamiah College)"</span>,<br />
-                  &nbsp;&nbsp;<span className="text-emerald-400">philosophy</span>: <span className="text-amber-300">"Learn → Build → Deploy → Improve"</span>,<br />
+                  &nbsp;&nbsp;<span className="text-emerald-400">philosophy</span>: <span className="text-amber-300">"Architect → Build → Deploy → Optimize"</span>,<br />
                   &nbsp;&nbsp;<span className="text-emerald-400">techStack</span>: [<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-amber-300">"JavaScript"</span>, <span className="text-amber-300">"React.js"</span>, <span className="text-amber-300">"HTML5/CSS3"</span>,<br />
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-amber-300">"Bootstrap"</span>, <span className="text-amber-300">"Django"</span>, <span className="text-amber-300">"MySQL"</span>,<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-amber-300">"Python"</span>, <span className="text-amber-300">"Django"</span>, <span className="text-amber-300">"React.js"</span>,<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-amber-300">"JavaScript"</span>, <span className="text-amber-300">"REST APIs"</span>, <span className="text-amber-300">"MySQL"</span>,<br />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span className="text-amber-300">"Git & GitHub"</span><br />
                   &nbsp;&nbsp;],<br />
-                  &nbsp;&nbsp;<span className="text-emerald-400">status</span>: <span className="text-emerald-400">"Open to Software Dev Opportunities"</span><br />
+                  &nbsp;&nbsp;<span className="text-emerald-400">status</span>: <span className="text-emerald-400">"Open to Full Stack & Software Opportunities"</span><br />
                   &#125;;
                 </code>
               </pre>

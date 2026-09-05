@@ -61,16 +61,16 @@ export default function HeroLight({ onOpenResume }) {
         >
           <div className="flex items-center justify-start gap-2.5 font-mono text-[11px] sm:text-xs font-extrabold uppercase tracking-widest text-heroText/70 mb-1">
             <span className="w-2 h-2 rounded-full bg-goldAccent inline-block animate-pulse" />
-            <span>MOHAMMED ZAKKI ADNAAN P — FRONTEND DEVELOPER</span>
+            <span>MOHAMMED ZAKKI ADNAAN P — PYTHON FULL STACK & REACT.JS DEVELOPER</span>
           </div>
 
           {/* Perfect Proportions Headline */}
           <div ref={headlineRef} className="will-change-transform leading-none">
-            <h1 className="font-headline text-[13vw] sm:text-[10.5vw] lg:text-[9vw] font-black uppercase leading-[0.84] tracking-tight text-heroText">
-              FRONTEND
+            <h1 className="font-headline text-[10vw] sm:text-[8vw] lg:text-[7.2vw] font-black uppercase leading-[0.84] tracking-tight text-heroText">
+              PYTHON FULL STACK
             </h1>
-            <h1 className="font-headline text-[13vw] sm:text-[10.5vw] lg:text-[9vw] font-black uppercase leading-[0.84] tracking-tight text-heroText flex items-center justify-between">
-              <span>DEVELOPER</span>
+            <h1 className="font-headline text-[10vw] sm:text-[8vw] lg:text-[7.2vw] font-black uppercase leading-[0.84] tracking-tight text-heroText flex items-center justify-between">
+              <span>& REACT DEVELOPER</span>
               <span className="text-xl sm:text-3xl lg:text-4xl font-mono font-normal text-goldAccent hidden sm:inline-block tracking-normal">
                 [2026]
               </span>
