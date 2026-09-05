@@ -47,6 +47,10 @@ html.lenis, html.lenis body {
     linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
 }
 
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
