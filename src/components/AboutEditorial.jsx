@@ -255,10 +255,7 @@ export default function AboutEditorial() {
                   <Terminal className="w-3.5 h-3.5" />
                   PORTRAIT // ZAKKI
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-goldAccent/10 border border-goldAccent/40 text-goldAccent font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                  <GraduationCap className="w-3 h-3 text-goldAccent" />
-                  BCA 2023–2026
-                </span>
+                <span className="w-2.5 h-2.5 rounded-full bg-goldAccent animate-pulse" />
               </div>
 
               {/* Center Portrait Image Frame */}
