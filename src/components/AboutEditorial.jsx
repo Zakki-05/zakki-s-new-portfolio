@@ -91,25 +91,122 @@ export default function AboutEditorial() {
             ABOUT ME
           </h2>
 
-          {/* Animated Gold Curved Line */}
-          <div className="relative w-56 sm:w-72 h-8 flex items-center justify-center my-1">
-            <svg className="w-full h-full" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Advanced Pro-Level Animated Gold SVG Line */}
+          <div className="relative w-64 sm:w-80 h-10 flex items-center justify-center my-2 select-none">
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                {/* Animated Shimmering Gold Gradient */}
+                <linearGradient id="goldGradientAdvance" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#B9A36A" />
+                  <stop offset="35%" stopColor="#FFE8A3" />
+                  <stop offset="70%" stopColor="#E5C365" />
+                  <stop offset="100%" stopColor="#B9A36A" />
+                </linearGradient>
+
+                {/* Neon Glow Filter */}
+                <filter id="goldNeonGlow" x="-20%" y="-50%" width="140%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Background Glow Stroke */}
+              <motion.path 
+                initial={{ opacity: 0, pathLength: 0 }}
+                whileInView={{ opacity: 0.6, pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+                d="M 10 15 Q 100 28 190 15" 
+                stroke="url(#goldGradientAdvance)" 
+                strokeWidth="4" 
+                strokeLinecap="round"
+                filter="url(#goldNeonGlow)"
+              />
+
+              {/* Primary Foreground Crisp Stroke */}
               <motion.path 
                 initial={{ pathLength: 0 }}
                 whileInView={{ pathLength: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
                 d="M 10 15 Q 100 28 190 15" 
-                stroke="#B9A36A" 
+                stroke="url(#goldGradientAdvance)" 
                 strokeWidth="2" 
                 strokeLinecap="round"
               />
+
+              {/* Infinite Sweeping Light Wave Laser Pulse */}
+              <motion.path
+                d="M 10 15 Q 100 28 190 15" 
+                stroke="#FFFFFF" 
+                strokeWidth="2.5" 
+                strokeLinecap="round"
+                strokeDasharray="20 160"
+                initial={{ strokeDashoffset: 180 }}
+                animate={{ strokeDashoffset: -180 }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                opacity={0.9}
+              />
+
+              {/* Left Endpoint Igniting Diamond Star */}
+              <motion.g
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                transform="translate(10, 15)"
+              >
+                <circle r="4" fill="#B9A36A" />
+                <motion.path 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  d="M 0 -7 L 2 -2 L 7 0 L 2 2 L 0 7 L -2 2 L -7 0 L -2 -2 Z" 
+                  fill="#FFE8A3"
+                />
+              </motion.g>
+
+              {/* Right Endpoint Igniting Diamond Star */}
+              <motion.g
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                transform="translate(190, 15)"
+              >
+                <circle r="4" fill="#B9A36A" />
+                <motion.path 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  d="M 0 -7 L 2 -2 L 7 0 L 2 2 L 0 7 L -2 2 L -7 0 L -2 -2 Z" 
+                  fill="#FFE8A3"
+                />
+              </motion.g>
+
+              {/* Center Core Expanding Sonar Waves */}
+              <g transform="translate(100, 21.5)">
+                <motion.circle
+                  r="6"
+                  fill="none"
+                  stroke="#B9A36A"
+                  strokeWidth="1"
+                  animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                />
+                <motion.circle
+                  r="6"
+                  fill="none"
+                  stroke="#FFE8A3"
+                  strokeWidth="1"
+                  animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
+                  transition={{ duration: 2, delay: 0.7, repeat: Infinity, ease: "easeOut" }}
+                />
+                <circle r="4" fill="#111111" stroke="#B9A36A" strokeWidth="2" />
+                <circle r="2" fill="#FFE8A3" />
+              </g>
             </svg>
-            <motion.div 
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-goldAccent border-2 border-primaryBlack shadow-lg shadow-goldAccent/50" 
-            />
           </div>
         </motion.div>
 
