@@ -51,7 +51,7 @@ export default function AboutEditorial() {
     { label: "PRIMARY FOCUS", val: "PYTHON FULL STACK", sub: "& React.js Development", icon: Code2 },
     { label: "CORE SKILLS", val: "REACT, DJANGO & MYSQL", sub: "RESTful Web APIs", icon: Cpu },
     { label: "MINDSET", val: "ALWAYS LEARNING", sub: "Problem-Solving First", icon: Brain },
-    { label: "EDUCATION", val: "BCA GRADUATE", sub: "Islamiah College (2023-2026)", icon: GraduationCap },
+    { label: "DEGREE & BATCH", val: "BCA (2023–2026)", sub: "Islamiah College (Autonomous)", icon: GraduationCap },
     { label: "BUILDING", val: "MODERN WEB APPS", sub: "Scalable & Responsive", icon: Rocket },
   ];
 
@@ -116,7 +116,7 @@ export default function AboutEditorial() {
         {/* Asymmetric 2-Column Main Grid */}
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: 3D Interactive Interactive Portrait Card */}
+          {/* Left Column: 3D Interactive Portrait Card */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -124,6 +124,16 @@ export default function AboutEditorial() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-5 relative perspective-1000"
           >
+            {/* Outer Unclipped Floating Badge: BCA 2023-2026 */}
+            <motion.div 
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-3 sm:-right-4 z-30 px-3.5 py-1.5 rounded-xl bg-black/95 border border-goldAccent text-goldAccent font-mono text-xs font-bold uppercase tracking-wider shadow-2xl flex items-center gap-1.5 backdrop-blur-md"
+            >
+              <Award className="w-4 h-4 text-goldAccent animate-pulse" />
+              <span>BCA 2023–2026</span>
+            </motion.div>
+
             <motion.div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
@@ -132,11 +142,11 @@ export default function AboutEditorial() {
                 transition: 'transform 0.15s ease-out'
               }}
               data-cursor="card"
-              className="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none rounded-3xl bg-black/90 border border-white/15 overflow-hidden p-6 flex flex-col justify-between shadow-2xl group cursor-pointer select-none"
+              className="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none rounded-3xl bg-black/90 border border-white/15 p-6 flex flex-col justify-between shadow-2xl group cursor-pointer select-none"
             >
               {/* Dynamic Mouse Glare Overlay */}
               <div 
-                className="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 style={{
                   background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(185, 163, 106, 0.15) 0%, transparent 60%)`
                 }}
@@ -146,12 +156,15 @@ export default function AboutEditorial() {
               <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
                 <span className="font-mono text-[11px] text-goldAccent font-bold uppercase tracking-widest flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5" />
-                  PORTRAIT // MOHAMMED ZAKKI
+                  PORTRAIT // ZAKKI
                 </span>
-                <span className="w-2.5 h-2.5 rounded-full bg-goldAccent animate-ping" />
+                <span className="px-2.5 py-0.5 rounded-full bg-goldAccent/10 border border-goldAccent/40 text-goldAccent font-mono text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                  <GraduationCap className="w-3 h-3 text-goldAccent" />
+                  BCA 2023–2026
+                </span>
               </div>
 
-              {/* Center Portrait Image Frame with Rotating Aura */}
+              {/* Center Portrait Image Frame */}
               <div className="my-auto py-4 relative z-10 text-center">
                 <div className="relative w-52 h-68 sm:w-60 sm:h-76 mx-auto rounded-2xl p-1 bg-gradient-to-tr from-goldAccent/40 via-white/10 to-goldAccent/40 shadow-2xl group-hover:from-goldAccent group-hover:to-goldAccent transition-all duration-500">
                   <div className="w-full h-full rounded-[14px] overflow-hidden bg-primaryBlack relative flex items-center justify-center">
@@ -176,20 +189,10 @@ export default function AboutEditorial() {
                 </div>
               </div>
 
-              {/* Floating Interactive Badge Pinned on Card */}
-              <motion.div 
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-3 -right-3 z-20 px-3.5 py-1.5 rounded-xl bg-black/90 border border-goldAccent/50 text-goldAccent font-mono text-[10px] font-bold uppercase tracking-wider shadow-xl flex items-center gap-1.5 backdrop-blur-md"
-              >
-                <Award className="w-3.5 h-3.5 text-goldAccent" />
-                <span>BCA 2023-2026</span>
-              </motion.div>
-
               {/* Bottom Card Footer */}
-              <div className="border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[10px] text-mutedText uppercase relative z-10">
-                <span>ISLAMIAH COLLEGE</span>
-                <span className="text-goldAccent font-bold">FULL STACK DEV</span>
+              <div className="border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[11px] text-mutedText uppercase relative z-10">
+                <span className="flex items-center gap-1">ISLAMIAH COLLEGE</span>
+                <span className="text-goldAccent font-bold bg-goldAccent/10 px-2 py-0.5 rounded border border-goldAccent/30">BCA 2023–2026</span>
               </div>
             </motion.div>
           </motion.div>
