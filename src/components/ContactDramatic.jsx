@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Send, CheckCircle2, AlertCircle, Copy, Mail, Phone, Github, Linkedin } from 'lucide-react';
+import { ArrowUpRight, Send, CheckCircle2, AlertCircle, Copy, Mail, Phone, Github, Linkedin, Loader2 } from 'lucide-react';
 import { personalData } from '../data/portfolioData';
 
 export default function ContactDramatic() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+  const [statusMessage, setStatusMessage] = useState('');
   const [copiedText, setCopiedText] = useState('');
 
   const handleCopy = (text, label) => {
@@ -28,15 +29,46 @@ export default function ContactDramatic() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
     setStatus('loading');
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setStatus('idle'), 5000);
-    }, 1200);
+    setStatusMessage('');
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || personalData.web3formsKey || '';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`,
+          from_name: 'Mohammed Zakki Adnaan Portfolio',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setStatusMessage('Thank you! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 6000);
+      } else {
+        setStatus('error');
+        setStatusMessage(result.message || 'Failed to send message. Please check your Web3Forms Access Key.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setStatusMessage('Network error occurred. Please try again or reach out via direct email.');
+    }
   };
 
   return (
@@ -173,15 +205,20 @@ export default function ContactDramatic() {
 
           </div>
 
-          {/* Right Message Form */}
+          {/* Right Message Form with Web3Forms */}
           <div className="lg:col-span-7 rounded-3xl bg-black border border-white/10 p-8 sm:p-10 space-y-6 shadow-2xl">
-            <h3 className="font-headline text-3xl sm:text-4xl font-extrabold text-primaryText uppercase tracking-wide">
-              SEND A DIRECT MESSAGE
-            </h3>
+            <div className="space-y-1">
+              <h3 className="font-headline text-3xl sm:text-4xl font-extrabold text-primaryText uppercase tracking-wide">
+                SEND A DIRECT MESSAGE
+              </h3>
+              <p className="text-mutedText font-mono text-xs uppercase tracking-wider">
+                POWERED BY WEB3FORMS
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div className="space-y-1.5 font-mono text-xs">
-                <label htmlFor="contact-name" className="text-mutedText uppercase tracking-wider block">
+                <label htmlFor="contact-name" className="text-mutedText uppercase tracking-wider block font-bold">
                   YOUR NAME <span className="text-goldAccent">*</span>
                 </label>
                 <input
@@ -198,7 +235,7 @@ export default function ContactDramatic() {
               </div>
 
               <div className="space-y-1.5 font-mono text-xs">
-                <label htmlFor="contact-email" className="text-mutedText uppercase tracking-wider block">
+                <label htmlFor="contact-email" className="text-mutedText uppercase tracking-wider block font-bold">
                   YOUR EMAIL <span className="text-goldAccent">*</span>
                 </label>
                 <input
@@ -215,7 +252,7 @@ export default function ContactDramatic() {
               </div>
 
               <div className="space-y-1.5 font-mono text-xs">
-                <label htmlFor="contact-message" className="text-mutedText uppercase tracking-wider block">
+                <label htmlFor="contact-message" className="text-mutedText uppercase tracking-wider block font-bold">
                   MESSAGE <span className="text-goldAccent">*</span>
                 </label>
                 <textarea
@@ -231,10 +268,18 @@ export default function ContactDramatic() {
                 {errors.message && <p className="text-red-400 text-[11px] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.message}</p>}
               </div>
 
+              {/* Status Alert Banner */}
               {status === 'success' && (
-                <div className="p-4 rounded-2xl bg-goldAccent/10 border border-goldAccent/40 text-goldAccent text-xs font-mono flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>Thank you! Your message inquiry has been recorded.</span>
+                <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 text-xs font-mono flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                  <span>{statusMessage}</span>
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/40 text-red-400 text-xs font-mono flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                  <span>{statusMessage}</span>
                 </div>
               )}
 
@@ -242,10 +287,13 @@ export default function ContactDramatic() {
                 type="submit"
                 disabled={status === 'loading'}
                 data-cursor="button"
-                className="w-full py-4 px-6 rounded-2xl font-mono text-xs font-bold uppercase tracking-widest text-primaryBlack bg-goldAccent hover:bg-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg"
+                className="w-full py-4 px-6 rounded-2xl font-mono text-xs font-bold uppercase tracking-widest text-primaryBlack bg-goldAccent hover:bg-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-60"
               >
                 {status === 'loading' ? (
-                  <span>SENDING...</span>
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>SENDING MESSAGE...</span>
+                  </>
                 ) : (
                   <>
                     <span>SEND MESSAGE</span>
