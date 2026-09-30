@@ -1,134 +1,81 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Code, Terminal, FileCode, Server, Layout, Database, GitBranch, Github, Layers, Cpu } from 'lucide-react';
-import { gsap } from 'gsap';
+import { Layout, Server, Database, Wrench, Globe, Cpu } from 'lucide-react';
+import { skillsCategories } from '../data/portfolioData';
 
-const expertiseList = [
-  {
-    num: '01',
-    title: 'Python Full Stack',
-    desc: 'Architecting robust Python backends with Django, Flask & RESTful API endpoints.',
-    icon: Server
-  },
-  {
-    num: '02',
-    title: 'React.js Engineering',
-    desc: 'Building fast, dynamic, and component-driven React interfaces with modern JS.',
-    icon: Cpu
-  },
-  {
-    num: '03',
-    title: 'Database & API Architecture',
-    desc: 'Designing relational database models, MySQL queries, and clean web APIs.',
-    icon: Database
-  },
-  {
-    num: '04',
-    title: 'UI/UX & Web Performance',
-    desc: 'Crafting responsive design layouts, smooth interactive states, and fast page loads.',
-    icon: Layout
-  }
-];
-
-const floatingLogos = [
-  { name: 'Python', icon: FileCode, top: '10%', left: '4%', color: '#3776AB' },
-  { name: 'React', icon: Cpu, top: '25%', right: '6%', color: '#61DAFB' },
-  { name: 'JavaScript', icon: Code, top: '48%', left: '3%', color: '#F7DF1E' },
-  { name: 'Django', icon: Server, top: '65%', right: '7%', color: '#092E20' },
-  { name: 'MySQL', icon: Database, top: '80%', left: '6%', color: '#4479A1' },
-  { name: 'Git', icon: GitBranch, top: '88%', right: '12%', color: '#F05032' },
-  { name: 'GitHub', icon: Github, top: '35%', right: '14%', color: '#FFFFFF' },
-];
+const categoryIcons = {
+  FRONTEND: Layout,
+  BACKEND: Server,
+  DATABASE: Database,
+  TOOLS: Wrench,
+  DEPLOYMENT: Globe
+};
 
 export default function ExpertiseRows() {
-  const containerRef = useRef(null);
-  const floatingRefs = useRef([]);
-
-  useEffect(() => {
-    // GSAP floating animation for tech icons
-    floatingRefs.current.forEach((el, index) => {
-      if (!el) return;
-      gsap.to(el, {
-        y: (index % 2 === 0 ? 15 : -15),
-        x: (index % 3 === 0 ? 10 : -10),
-        duration: 3 + (index % 3),
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: index * 0.2
-      });
-    });
-  }, []);
-
   return (
     <section 
-      ref={containerRef}
-      id="expertise" 
-      className="py-28 sm:py-36 bg-primaryBlack text-primaryText relative overflow-hidden border-t border-white/10 editorial-grid"
+      id="skills" 
+      className="py-24 sm:py-32 bg-primaryBlack text-primaryText relative overflow-hidden border-t border-white/10 editorial-grid"
     >
-      {/* Floating Independent Technology Logos */}
-      {floatingLogos.map((tech, idx) => {
-        const TechIcon = tech.icon;
-        return (
-          <div
-            key={tech.name}
-            ref={(el) => (floatingRefs.current[idx] = el)}
-            style={{ top: tech.top, left: tech.left, right: tech.right }}
-            className="absolute pointer-events-none z-0 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 border border-white/10 text-xs font-mono shadow-xl backdrop-blur-md opacity-80 hover:opacity-100 transition-opacity"
-          >
-            <TechIcon className="w-4 h-4" style={{ color: tech.color }} />
-            <span className="text-primaryText font-bold">{tech.name}</span>
-          </div>
-        );
-      })}
-
       <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="space-y-4 mb-20">
-          <span className="font-mono text-xs uppercase tracking-widest text-goldAccent font-bold block">
-            03 — EXPERTISE
-          </span>
-          <h2 className="font-headline text-5xl sm:text-7xl font-extrabold text-primaryText tracking-wider uppercase">
-            MY EXPERTISE
+        <div className="flex flex-col items-center text-center space-y-3 mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-goldAccent/10 border border-goldAccent/30 font-mono text-xs font-bold uppercase tracking-widest text-goldAccent">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>04 // TECHNICAL SKILLS & STACK</span>
+          </div>
+
+          <h2 className="font-headline text-5xl sm:text-7xl font-extrabold text-goldAccent tracking-wider uppercase">
+            TECHNICAL SKILLS
           </h2>
-          <p className="text-mutedText font-mono text-xs sm:text-sm max-w-xl uppercase tracking-wider">
-            I design and build digital experiences where design, code and motion work as one.
+
+          <div className="w-20 h-[2px] bg-goldAccent mt-2" />
+          
+          <p className="text-mutedText font-mono text-xs sm:text-sm max-w-xl uppercase tracking-wider pt-2">
+            Categorized technical stack across modern web development technologies.
           </p>
         </div>
 
-        {/* Stacked Horizontal Expertise Rows */}
-        <div className="space-y-0 border-t border-white/10">
-          {expertiseList.map((item) => {
-            const RowIcon = item.icon;
+        {/* 5 Clean Categorized Cards (No Percentage Bars) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillsCategories.map((group, idx) => {
+            const IconComp = categoryIcons[group.category] || Cpu;
             return (
               <motion.div
-                key={item.num}
-                whileHover={{ backgroundColor: '#0B0B0B' }}
-                data-cursor="button"
-                className="group border-b border-white/10 py-8 px-4 sm:px-8 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-300"
+                key={group.category}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className="rounded-3xl bg-black border border-white/10 p-7 space-y-5 hover:border-goldAccent/40 transition-all shadow-xl flex flex-col justify-between"
               >
-                {/* Number & Title */}
-                <div className="flex items-center gap-6 sm:gap-10">
-                  <span className="font-mono text-sm font-bold text-goldAccent tracking-widest">
-                    {item.num}
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <RowIcon className="w-5 h-5 text-goldAccent opacity-70 group-hover:opacity-100 transition-opacity" />
-                    <h3 className="font-display text-2xl sm:text-4xl font-extrabold text-primaryText group-hover:text-goldAccent transition-colors uppercase tracking-wide">
-                      {item.title}
-                    </h3>
+                <div className="space-y-4">
+                  {/* Category Header */}
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <span className="font-mono text-xs font-bold text-goldAccent uppercase tracking-widest flex items-center gap-2">
+                      <IconComp className="w-4 h-4 text-goldAccent" />
+                      {group.category}
+                    </span>
+                    <span className="text-[10px] font-mono text-mutedText">{group.skills.length} TECHS</span>
+                  </div>
+
+                  {/* Technology Tags */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {group.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold hover:border-goldAccent/40 transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-mutedText max-w-md font-sans leading-relaxed">
-                  {item.desc}
-                </p>
-
-                {/* Arrow */}
-                <div className="p-3 rounded-full border border-white/10 group-hover:border-goldAccent group-hover:bg-goldAccent group-hover:text-primaryBlack transition-all self-end md:self-center">
-                  <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                <div className="pt-4 border-t border-white/5 font-mono text-[10px] text-mutedText uppercase flex items-center justify-between">
+                  <span>VERIFIED STACK</span>
+                  <span className="text-goldAccent font-bold">ZAKKI.DEV</span>
                 </div>
               </motion.div>
             );

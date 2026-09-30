@@ -9,7 +9,7 @@ import AboutEditorial from './components/AboutEditorial';
 import Experience from './components/Experience';
 import ExpertiseRows from './components/ExpertiseRows';
 import ProjectsEditorial from './components/ProjectsEditorial';
-import CurrentlyBuildingMarquee from './components/CurrentlyBuildingMarquee';
+import GithubSection from './components/GithubSection';
 import EducationEditorial from './components/EducationEditorial';
 import ContactDramatic from './components/ContactDramatic';
 import FooterEditorial from './components/FooterEditorial';
@@ -43,39 +43,39 @@ export default function App() {
   return (
     <div className="min-h-screen bg-primaryBlack text-primaryText relative font-sans selection:bg-goldAccent selection:text-primaryBlack">
       
-      {/* Initial Percentage Preloader */}
+      {/* Preloader */}
       <Preloader onComplete={() => setIsLoading(false)} />
 
       {/* Desktop Magnetic Follower Cursor */}
       <CustomCursor />
 
-      {/* Editorial Navigation */}
+      {/* Navigation Bar */}
       <EditorialNav onOpenResume={() => setIsResumeOpen(true)} />
 
-      {/* Core Website Layout */}
+      {/* Main Website Content */}
       <main className={isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-700'}>
-        {/* 01 — HERO (Warm Cream Section) */}
+        {/* 01 — HERO */}
         <HeroLight onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* 02 — ABOUT ME (Luxury Black Section with Gold Line & Asymmetric Frame) */}
+        {/* 02 — ABOUT ME */}
         <AboutEditorial />
 
-        {/* 03 — INDUSTRY EXPERIENCE (Aspirasys Internship & Industrial Training) */}
+        {/* 03 — EXPERIENCE & INTERNSHIPS */}
         <Experience />
 
-        {/* 04 — EXPERTISE (Horizontal Architectural Rows & Tech Cloud) */}
+        {/* 04 — TECHNICAL SKILLS */}
         <ExpertiseRows />
 
-        {/* 05 — MY WORK (Magazine Editorial Viewport Project Cards) */}
+        {/* 05 — PROJECTS SHOWCASE & FEATURED CASE STUDY */}
         <ProjectsEditorial />
 
-        {/* 06 — JOURNAL (MOTION DESIGN + UI/UX + FRONTEND Marquee) */}
-        <CurrentlyBuildingMarquee />
+        {/* 06 — GITHUB CTA */}
+        <GithubSection />
 
-        {/* 07 — EDUCATION (BCA & Higher Secondary Timeline) */}
+        {/* 07 — EDUCATION */}
         <EducationEditorial />
 
-        {/* 08 — CONTACT (Dramatic Black Section + Rotating "LET'S TALK ↗" CTA) */}
+        {/* 08 — CONTACT SECTION */}
         <ContactDramatic />
       </main>
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, FileText, ArrowUpRight } from 'lucide-react';
+import { personalData } from '../data/portfolioData';
 
 const navItems = [
-  { label: 'WORK', href: '#work' },
+  { label: 'HOME', href: '#home' },
   { label: 'ABOUT', href: '#about' },
-  { label: 'EXPERTISE', href: '#expertise' },
-  { label: 'JOURNAL', href: '#journal' },
+  { label: 'SKILLS', href: '#skills' },
+  { label: 'EXPERIENCE', href: '#experience' },
+  { label: 'PROJECTS', href: '#projects' },
   { label: 'EDUCATION', href: '#education' },
   { label: 'CONTACT', href: '#contact' },
 ];
@@ -26,29 +28,30 @@ export default function EditorialNav({ onOpenResume }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
       <nav 
-        className={`w-full px-6 sm:px-12 py-5 flex items-center justify-between transition-all duration-300 ${
+        aria-label="Main Navigation"
+        className={`w-full px-6 sm:px-12 py-4 flex items-center justify-between transition-all duration-300 ${
           scrolled 
-            ? 'bg-primaryBlack/90 backdrop-blur-md border-b border-white/10 text-primaryText py-4' 
+            ? 'bg-primaryBlack/95 backdrop-blur-md border-b border-white/10 text-primaryText py-3.5 shadow-2xl' 
             : 'bg-transparent text-heroText border-b border-heroText/10'
         }`}
       >
-        {/* Left Brand Logo */}
+        {/* Brand Logo */}
         <a 
           href="#home"
           data-cursor="link"
-          className="font-display text-xl tracking-wider uppercase font-black"
+          className="font-display text-xl tracking-wider uppercase font-black flex items-center gap-1.5"
         >
-          ZAKKI
+          <span>ZAKKI</span><span className="text-goldAccent">.DEV</span>
         </a>
 
-        {/* Center Nav Links (Visible on Tablet md: 768px and Laptop lg: 1024px+) */}
-        <ul className="hidden md:flex items-center gap-6 lg:gap-10 xl:gap-12">
+        {/* Center Desktop Navigation */}
+        <ul className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navItems.map((item) => (
             <li key={item.label}>
               <a
                 href={item.href}
                 data-cursor="link"
-                className={`font-mono text-[11px] uppercase tracking-widest transition-all ${
+                className={`font-mono text-[11px] uppercase tracking-widest font-semibold transition-all ${
                   scrolled 
                     ? 'text-primaryText/80 hover:text-goldAccent' 
                     : 'text-heroText/80 hover:text-heroText font-bold'
@@ -60,12 +63,12 @@ export default function EditorialNav({ onOpenResume }) {
           ))}
         </ul>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-4">
+        {/* Right Action & Mobile Toggle */}
+        <div className="flex items-center gap-3">
           <button
             onClick={onOpenResume}
             data-cursor="button"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold border transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold border transition-all"
             style={{
               color: scrolled ? '#B9A36A' : '#111111',
               borderColor: scrolled ? 'rgba(185, 163, 106, 0.4)' : 'rgba(17, 17, 17, 0.3)',
@@ -76,34 +79,35 @@ export default function EditorialNav({ onOpenResume }) {
             <span>RESUME</span>
           </button>
 
-          {/* Toggle Menu Button ONLY for small mobile screens (<768px), completely hidden on Tablet & Laptop (md:hidden) */}
+          {/* Toggle Menu Button for Mobile/Tablet (<1024px) */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={`md:hidden p-2 transition-all ${scrolled ? 'text-primaryText' : 'text-heroText'}`}
-            aria-label="Toggle Menu"
+            className={`lg:hidden p-2 transition-all rounded-lg ${scrolled ? 'text-primaryText hover:bg-white/5' : 'text-heroText'}`}
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Drawer Overlay (<768px screens only) */}
+      {/* Mobile Drawer Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden fixed inset-x-0 top-16 z-50 bg-primaryBlack/95 backdrop-blur-xl border-b border-white/10 p-8 space-y-6 text-primaryText font-mono"
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden fixed inset-x-0 top-16 z-50 bg-primaryBlack/98 backdrop-blur-2xl border-b border-white/10 p-8 space-y-5 text-primaryText font-mono shadow-2xl"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm font-bold tracking-widest uppercase py-2 border-b border-white/5 flex items-center justify-between text-primaryText hover:text-goldAccent transition-colors"
+                  className="text-sm font-bold tracking-widest uppercase py-2.5 border-b border-white/5 flex items-center justify-between text-primaryText hover:text-goldAccent transition-colors"
                 >
                   <span>{item.label}</span>
                   <ArrowUpRight className="w-4 h-4 text-goldAccent" />
@@ -115,7 +119,7 @@ export default function EditorialNav({ onOpenResume }) {
                   setMobileOpen(false);
                   onOpenResume();
                 }}
-                className="w-full mt-4 py-3 rounded-full bg-goldAccent text-primaryBlack font-bold text-xs tracking-widest uppercase flex items-center justify-center gap-2"
+                className="w-full mt-4 py-3.5 rounded-full bg-goldAccent text-primaryBlack font-bold text-xs tracking-widest uppercase flex items-center justify-center gap-2 shadow-lg"
               >
                 <FileText className="w-4 h-4" />
                 <span>VIEW RESUME</span>

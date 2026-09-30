@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, Code2, Sparkles, GraduationCap, Rocket, Brain, Cpu, Terminal, Award } from 'lucide-react';
+import { MapPin, Code2, Sparkles, GraduationCap, Rocket, Terminal, Award, Server } from 'lucide-react';
 import { personalData } from '../data/portfolioData';
 
 export default function AboutEditorial() {
@@ -18,8 +18,7 @@ export default function AboutEditorial() {
     offset: ["start end", "end start"]
   });
 
-  const yParallax = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const opacityFade = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  const yParallax = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
@@ -30,8 +29,8 @@ export default function AboutEditorial() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rX = ((y - centerY) / centerY) * -12;
-    const rY = ((x - centerX) / centerX) * 12;
+    const rX = ((y - centerY) / centerY) * -10;
+    const rY = ((x - centerX) / centerX) * 10;
 
     setRotateX(rX);
     setRotateY(rY);
@@ -43,38 +42,29 @@ export default function AboutEditorial() {
     setRotateY(0);
   };
 
-  // Words reveal array for headline animation
-  const statementWords = "I BUILD DIGITAL WORLDS WHERE DESIGN AND CODE WORK TOGETHER.".split(" ");
-
   const cardStats = [
-    { label: "BASED IN", val: "PERNAMBUT, TAMIL NADU", sub: "India", icon: MapPin },
-    { label: "PRIMARY FOCUS", val: "PYTHON FULL STACK", sub: "& React.js Development", icon: Code2 },
-    { label: "CORE SKILLS", val: "REACT, DJANGO & MYSQL", sub: "RESTful Web APIs", icon: Cpu },
-    { label: "MINDSET", val: "ALWAYS LEARNING", sub: "Problem-Solving First", icon: Brain },
-    { label: "DEGREE & BATCH", val: "BCA (2023–2026)", sub: "Islamiah College (Autonomous)", icon: GraduationCap },
-    { label: "BUILDING", val: "MODERN WEB APPS", sub: "Scalable & Responsive", icon: Rocket },
+    { label: "DEGREE", val: "BCA (2023–2026)", sub: "Islamiah College (Autonomous)", icon: GraduationCap },
+    { label: "PRIMARY POSITION", val: "PYTHON FULL STACK", sub: "& React.js Developer", icon: Code2 },
+    { label: "BACKEND & DB", val: "PYTHON & DJANGO", sub: "MySQL Database & REST APIs", icon: Server },
+    { label: "LOCATION", val: "PERNAMBUT, TAMIL NADU", sub: "India (Open to Relocation/Remote)", icon: MapPin },
   ];
 
   return (
     <section 
       ref={containerRef}
       id="about" 
-      className="relative py-28 sm:py-36 bg-primaryBlack text-primaryText overflow-hidden editorial-grid"
+      className="relative py-24 sm:py-32 bg-primaryBlack text-primaryText overflow-hidden editorial-grid"
     >
       
       {/* Background Animated Glow Elements */}
       <motion.div 
-        style={{ y: yParallax, opacity: opacityFade }}
+        style={{ y: yParallax }}
         className="absolute top-1/4 left-10 w-96 h-96 bg-goldAccent/10 rounded-full blur-[140px] pointer-events-none" 
       />
-      <motion.div 
-        style={{ y: useTransform(scrollYProgress, [0, 1], [40, -40]) }}
-        className="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[160px] pointer-events-none" 
-      />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10 space-y-20">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10 space-y-16">
         
-        {/* Section Header with Animated Gold Accent Line */}
+        {/* Section Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -83,153 +73,33 @@ export default function AboutEditorial() {
           className="flex flex-col items-center text-center space-y-3"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-goldAccent/10 border border-goldAccent/30 font-mono text-xs font-bold uppercase tracking-widest text-goldAccent">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span>02 // THE PERSON BEHIND THE WORK</span>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>02 // ABOUT ME</span>
           </div>
 
           <h2 className="font-headline text-5xl sm:text-7xl lg:text-8xl font-black text-goldAccent tracking-wider uppercase leading-none">
             ABOUT ME
           </h2>
 
-          {/* Advanced Pro-Level Animated Gold SVG Line */}
-          <div className="relative w-64 sm:w-80 h-10 flex items-center justify-center my-2 select-none">
-            <svg className="w-full h-full overflow-visible" viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                {/* Animated Shimmering Gold Gradient */}
-                <linearGradient id="goldGradientAdvance" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#B9A36A" />
-                  <stop offset="35%" stopColor="#FFE8A3" />
-                  <stop offset="70%" stopColor="#E5C365" />
-                  <stop offset="100%" stopColor="#B9A36A" />
-                </linearGradient>
-
-                {/* Neon Glow Filter */}
-                <filter id="goldNeonGlow" x="-20%" y="-50%" width="140%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Background Glow Stroke */}
-              <motion.path 
-                initial={{ opacity: 0, pathLength: 0 }}
-                whileInView={{ opacity: 0.6, pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                d="M 10 15 Q 100 28 190 15" 
-                stroke="url(#goldGradientAdvance)" 
-                strokeWidth="4" 
-                strokeLinecap="round"
-                filter="url(#goldNeonGlow)"
-              />
-
-              {/* Primary Foreground Crisp Stroke */}
-              <motion.path 
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                d="M 10 15 Q 100 28 190 15" 
-                stroke="url(#goldGradientAdvance)" 
-                strokeWidth="2" 
-                strokeLinecap="round"
-              />
-
-              {/* Infinite Sweeping Light Wave Laser Pulse */}
-              <motion.path
-                d="M 10 15 Q 100 28 190 15" 
-                stroke="#FFFFFF" 
-                strokeWidth="2.5" 
-                strokeLinecap="round"
-                strokeDasharray="20 160"
-                initial={{ strokeDashoffset: 180 }}
-                animate={{ strokeDashoffset: -180 }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                opacity={0.9}
-              />
-
-              {/* Left Endpoint Igniting Diamond Star */}
-              <motion.g
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                transform="translate(10, 15)"
-              >
-                <circle r="4" fill="#B9A36A" />
-                <motion.path 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  d="M 0 -7 L 2 -2 L 7 0 L 2 2 L 0 7 L -2 2 L -7 0 L -2 -2 Z" 
-                  fill="#FFE8A3"
-                />
-              </motion.g>
-
-              {/* Right Endpoint Igniting Diamond Star */}
-              <motion.g
-                initial={{ scale: 0, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                transform="translate(190, 15)"
-              >
-                <circle r="4" fill="#B9A36A" />
-                <motion.path 
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  d="M 0 -7 L 2 -2 L 7 0 L 2 2 L 0 7 L -2 2 L -7 0 L -2 -2 Z" 
-                  fill="#FFE8A3"
-                />
-              </motion.g>
-
-              {/* Center Core Expanding Sonar Waves */}
-              <g transform="translate(100, 21.5)">
-                <motion.circle
-                  r="6"
-                  fill="none"
-                  stroke="#B9A36A"
-                  strokeWidth="1"
-                  animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                />
-                <motion.circle
-                  r="6"
-                  fill="none"
-                  stroke="#FFE8A3"
-                  strokeWidth="1"
-                  animate={{ scale: [1, 2.5], opacity: [0.8, 0] }}
-                  transition={{ duration: 2, delay: 0.7, repeat: Infinity, ease: "easeOut" }}
-                />
-                <circle r="4" fill="#111111" stroke="#B9A36A" strokeWidth="2" />
-                <circle r="2" fill="#FFE8A3" />
-              </g>
-            </svg>
-          </div>
+          <div className="w-20 h-[2px] bg-goldAccent mt-2" />
         </motion.div>
 
-        {/* Asymmetric 2-Column Main Grid */}
+        {/* Asymmetric 2-Column Grid */}
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: 3D Interactive Portrait Card */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
             className="lg:col-span-5 relative perspective-1000"
           >
-            {/* Outer Unclipped Floating Badge: BCA 2023-2026 */}
-            <motion.div 
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-3 sm:-right-4 z-30 px-3.5 py-1.5 rounded-xl bg-black/95 border border-goldAccent text-goldAccent font-mono text-xs font-bold uppercase tracking-wider shadow-2xl flex items-center gap-1.5 backdrop-blur-md"
-            >
-              <Award className="w-4 h-4 text-goldAccent animate-pulse" />
-              <span>BCA 2023–2026</span>
-            </motion.div>
+            {/* Floating Degree Badge */}
+            <div className="absolute -top-4 -right-3 z-30 px-3.5 py-1.5 rounded-xl bg-black/95 border border-goldAccent text-goldAccent font-mono text-xs font-bold uppercase tracking-wider shadow-2xl flex items-center gap-1.5 backdrop-blur-md">
+              <Award className="w-4 h-4 text-goldAccent" />
+              <span>BCA — ISLAMIAH COLLEGE</span>
+            </div>
 
             <motion.div
               onMouseMove={handleMouseMove}
@@ -238,10 +108,9 @@ export default function AboutEditorial() {
                 transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
                 transition: 'transform 0.15s ease-out'
               }}
-              data-cursor="card"
               className="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none rounded-3xl bg-black/90 border border-white/15 p-6 flex flex-col justify-between shadow-2xl group cursor-pointer select-none"
             >
-              {/* Dynamic Mouse Glare Overlay */}
+              {/* Dynamic Glare */}
               <div 
                 className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 style={{
@@ -253,19 +122,19 @@ export default function AboutEditorial() {
               <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
                 <span className="font-mono text-[11px] text-goldAccent font-bold uppercase tracking-widest flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5" />
-                  PORTRAIT // ZAKKI
+                  MOHAMMED ZAKKI ADNAAN
                 </span>
                 <span className="w-2.5 h-2.5 rounded-full bg-goldAccent animate-pulse" />
               </div>
 
-              {/* Center Portrait Image Frame */}
+              {/* Center Portrait Frame */}
               <div className="my-auto py-4 relative z-10 text-center">
                 <div className="relative w-52 h-68 sm:w-60 sm:h-76 mx-auto rounded-2xl p-1 bg-gradient-to-tr from-goldAccent/40 via-white/10 to-goldAccent/40 shadow-2xl group-hover:from-goldAccent group-hover:to-goldAccent transition-all duration-500">
                   <div className="w-full h-full rounded-[14px] overflow-hidden bg-primaryBlack relative flex items-center justify-center">
                     {!imageError ? (
                       <img 
                         src="/profile.jpg" 
-                        alt={personalData.name}
+                        alt="Mohammed Zakki Adnaan"
                         onError={() => setImageError(true)}
                         className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-[1.02] group-hover:scale-105"
                       />
@@ -278,72 +147,54 @@ export default function AboutEditorial() {
                 </div>
 
                 <div className="space-y-1 mt-4">
-                  <p className="text-primaryText font-bold text-lg font-headline tracking-wide uppercase">{personalData.name}</p>
-                  <p className="text-goldAccent font-mono text-xs font-semibold uppercase tracking-wider">{personalData.title}</p>
+                  <p className="text-primaryText font-bold text-lg font-headline tracking-wide uppercase">Mohammed Zakki Adnaan P</p>
+                  <p className="text-goldAccent font-mono text-xs font-semibold uppercase tracking-wider">Python Full Stack & React.js Developer</p>
                 </div>
               </div>
 
               {/* Bottom Card Footer */}
               <div className="border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[11px] text-mutedText uppercase relative z-10">
-                <span className="flex items-center gap-1">ISLAMIAH COLLEGE</span>
+                <span>ISLAMIAH COLLEGE (AUTONOMOUS)</span>
                 <span className="text-goldAccent font-bold bg-goldAccent/10 px-2 py-0.5 rounded border border-goldAccent/30">BCA 2023–2026</span>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Dynamic Text Reveal & Content */}
+          {/* Right Column: Bio Content */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-7 space-y-8"
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="lg:col-span-7 space-y-6"
           >
-            <div className="space-y-3">
+            <div className="space-y-2">
               <span className="font-mono text-xs uppercase tracking-widest text-goldAccent font-bold block">
-                WHO AM I?
+                PROFESSIONAL SUMMARY
               </span>
-
-              {/* Animated Word-by-Word Headline Statement */}
-              <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-primaryText uppercase leading-tight tracking-tight flex flex-wrap gap-x-3 gap-y-1">
-                {statementWords.map((word, idx) => (
-                  <motion.span
-                    key={idx}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.04 }}
-                    className={word === "DESIGN" || word === "CODE" ? "text-goldAccent font-extrabold underline decoration-goldAccent/40 underline-offset-8" : ""}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
+              <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-primaryText uppercase leading-tight tracking-tight">
+                DEVELOPER PROFILE
               </h3>
             </div>
 
-            {/* Paragraph Bio */}
-            <p className="text-mutedText text-base sm:text-lg font-body leading-relaxed border-l-2 border-goldAccent/40 pl-5">
-              {personalData.fullBio}
+            {/* Concise Recruiter Bio */}
+            <p className="text-primaryText/90 text-base sm:text-lg font-body leading-relaxed border-l-2 border-goldAccent pl-5">
+              I'm <strong className="text-goldAccent font-semibold">Mohammed Zakki Adnaan</strong>, a BCA graduate and Python Full Stack & React.js Developer focused on building responsive and scalable web applications. I work across frontend interfaces, REST APIs, databases and deployment, with hands-on experience building and deploying real-world projects.
             </p>
 
-            {/* Interactive Tech Badge Pills */}
-            <div className="space-y-2">
+            {/* Core Tech Pills */}
+            <div className="space-y-2 pt-2">
               <span className="font-mono text-[11px] text-mutedText uppercase tracking-wider block font-bold">
-                CORE STACK & TOOLS:
+                CORE TECHNICAL COMPETENCIES:
               </span>
               <div className="flex flex-wrap gap-2">
-                {["React.js", "Django", "Python", "MySQL", "JavaScript (ES6+)", "Tailwind CSS", "REST APIs", "Git & GitHub"].map((tech, idx) => (
-                  <motion.span
+                {["React.js", "JavaScript (ES6+)", "Python", "Django", "FastAPI", "MySQL", "REST APIs", "Tailwind CSS", "Bootstrap", "Git & GitHub"].map((tech) => (
+                  <span
                     key={tech}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    whileHover={{ scale: 1.08, backgroundColor: "rgba(185, 163, 106, 0.15)", borderColor: "#B9A36A" }}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold transition-all cursor-pointer shadow-sm"
+                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold"
                   >
                     {tech}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </div>
@@ -352,35 +203,25 @@ export default function AboutEditorial() {
 
         </div>
 
-        {/* Bottom Interactive 6-Card Info Grid */}
-        <div className="pt-8 border-t border-white/10 space-y-6">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs text-goldAccent font-bold uppercase tracking-widest flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5" />
-              QUICK HIGHLIGHTS & CREDENTIALS
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
+        {/* Bottom 4-Card Info Grid */}
+        <div className="pt-8 border-t border-white/10 space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
             {cardStats.map((item, idx) => {
               const IconComp = item.icon;
               return (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, y: 25 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
-                  whileHover={{ y: -5, backgroundColor: "#0E0E0E" }}
-                  className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-2 group transition-all shadow-md relative overflow-hidden"
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-2 relative overflow-hidden"
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-goldAccent/5 rounded-full blur-xl group-hover:bg-goldAccent/15 transition-all" />
-
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-goldAccent font-bold uppercase tracking-widest">
                       {item.label}
                     </span>
-                    <IconComp className="w-4 h-4 text-goldAccent group-hover:scale-110 transition-transform" />
+                    <IconComp className="w-4 h-4 text-goldAccent" />
                   </div>
 
                   <p className="text-sm font-bold text-primaryText tracking-wide uppercase">
