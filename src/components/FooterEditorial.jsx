@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowUp, Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { personalData } from '../data/portfolioData';
 
@@ -16,7 +17,7 @@ export default function FooterEditorial({ onOpenResume }) {
           
           {/* Left Brand & Title */}
           <div className="space-y-2">
-            <a href="#home" className="font-headline text-3xl font-black tracking-widest text-primaryText block">
+            <a href="#home" className="font-headline text-3xl font-black tracking-widest text-primaryText block hover:text-goldAccent transition-colors">
               MOHAMMED ZAKKI ADNAAN
             </a>
             <p className="text-goldAccent font-bold uppercase tracking-wider text-xs">
@@ -26,7 +27,9 @@ export default function FooterEditorial({ onOpenResume }) {
 
           {/* Center Social & Contact Actions */}
           <div className="flex flex-wrap items-center gap-4">
-            <a
+            <motion.a
+              whileHover={{ y: -2, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               href={personalData.githubUrl}
               target="_blank"
               rel="noreferrer"
@@ -35,9 +38,11 @@ export default function FooterEditorial({ onOpenResume }) {
             >
               <Github className="w-4 h-4 text-goldAccent" />
               <span>GITHUB</span>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
+              whileHover={{ y: -2, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               href={personalData.linkedinUrl}
               target="_blank"
               rel="noreferrer"
@@ -46,25 +51,29 @@ export default function FooterEditorial({ onOpenResume }) {
             >
               <Linkedin className="w-4 h-4 text-goldAccent" />
               <span>LINKEDIN</span>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
+              whileHover={{ y: -2, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               href={`mailto:${personalData.email}`}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-goldAccent hover:text-goldAccent transition-all font-bold uppercase"
               aria-label="Email"
             >
               <Mail className="w-4 h-4 text-goldAccent" />
               <span>EMAIL</span>
-            </a>
+            </motion.a>
 
             {onOpenResume && (
-              <button
+              <motion.button
+                whileHover={{ y: -2, scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={onOpenResume}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-goldAccent/10 border border-goldAccent/30 text-goldAccent hover:bg-goldAccent hover:text-primaryBlack transition-all font-bold uppercase"
               >
                 <FileText className="w-4 h-4" />
                 <span>RESUME</span>
-              </button>
+              </motion.button>
             )}
           </div>
 
@@ -76,13 +85,15 @@ export default function FooterEditorial({ onOpenResume }) {
             © 2026 MOHAMMED ZAKKI ADNAAN &nbsp;•&nbsp; ALL RIGHTS RESERVED
           </p>
 
-          <button
+          <motion.button
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-goldAccent text-primaryText hover:text-goldAccent transition-all font-bold uppercase tracking-widest bg-black/40"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-goldAccent text-primaryText hover:text-goldAccent transition-all font-bold uppercase tracking-widest bg-black/40 shadow-sm group"
           >
             <span>BACK TO TOP</span>
-            <ArrowUp className="w-3.5 h-3.5 text-goldAccent" />
-          </button>
+            <ArrowUp className="w-3.5 h-3.5 text-goldAccent group-hover:-translate-y-0.5 transition-transform" />
+          </motion.button>
         </div>
 
       </div>

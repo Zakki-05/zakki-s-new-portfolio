@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
 import EditorialNav from './components/EditorialNav';
 import HeroLight from './components/HeroLight';
 import AboutEditorial from './components/AboutEditorial';
@@ -48,6 +49,9 @@ export default function App() {
 
       {/* Desktop Magnetic Follower Cursor */}
       <CustomCursor />
+
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
 
       {/* Navigation Bar */}
       <EditorialNav onOpenResume={() => setIsResumeOpen(true)} />

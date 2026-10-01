@@ -161,9 +161,11 @@ export default function ProjectsEditorial() {
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group rounded-3xl bg-black border border-white/10 p-7 space-y-5 hover:border-goldAccent/40 transition-all shadow-xl flex flex-col justify-between"
+                whileHover={{ y: -6 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="group rounded-3xl bg-black border border-white/10 p-7 space-y-5 hover:border-goldAccent/50 transition-all shadow-xl hover:shadow-[0_14px_35px_rgba(185,163,106,0.1)] flex flex-col justify-between cursor-pointer"
+                onClick={() => setSelectedProject(project)}
               >
                 <div className="space-y-4">
                   {/* Category & Subtitle */}
@@ -171,6 +173,7 @@ export default function ProjectsEditorial() {
                     <span className="text-goldAccent font-bold uppercase tracking-widest">
                       {project.category}
                     </span>
+                    <span className="text-mutedText group-hover:text-goldAccent transition-colors">↗</span>
                   </div>
 
                   {/* Project Title */}
@@ -186,7 +189,7 @@ export default function ProjectsEditorial() {
                   {/* Tech Stack Tags */}
                   <div className="flex flex-wrap gap-1.5 font-mono text-[11px] pt-1">
                     {project.technologies.slice(0, 4).map((tech) => (
-                      <span key={tech} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-primaryText font-semibold">
+                      <span key={tech} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-primaryText font-semibold group-hover:border-white/20 transition-colors">
                         {tech}
                       </span>
                     ))}
@@ -194,10 +197,15 @@ export default function ProjectsEditorial() {
                 </div>
 
                 {/* Bottom Action Links */}
-                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                <div 
+                  className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 font-mono text-xs"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="flex items-center gap-2">
                     {project.github && (
-                      <a
+                      <motion.a
+                        whileHover={{ scale: 1.08, y: -1 }}
+                        whileTap={{ scale: 0.95 }}
                         href={project.github}
                         target="_blank"
                         rel="noreferrer"
@@ -205,11 +213,13 @@ export default function ProjectsEditorial() {
                         title="GitHub Repository"
                       >
                         <Github className="w-4 h-4" />
-                      </a>
+                      </motion.a>
                     )}
 
                     {project.liveDemo && (
-                      <a
+                      <motion.a
+                        whileHover={{ scale: 1.05, y: -1 }}
+                        whileTap={{ scale: 0.95 }}
                         href={project.liveDemo}
                         target="_blank"
                         rel="noreferrer"
@@ -217,15 +227,16 @@ export default function ProjectsEditorial() {
                       >
                         <span>DEMO</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
-                      </a>
+                      </motion.a>
                     )}
                   </div>
 
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="text-[11px] font-bold text-mutedText hover:text-goldAccent transition-colors uppercase tracking-wider"
+                    className="text-[11px] font-bold text-mutedText hover:text-goldAccent transition-colors uppercase tracking-wider flex items-center gap-1 group-hover:text-goldAccent"
                   >
-                    DETAILS ↗
+                    <span>DETAILS</span>
+                    <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
                   </button>
                 </div>
               </motion.div>

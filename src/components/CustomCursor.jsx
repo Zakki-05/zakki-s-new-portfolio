@@ -8,7 +8,10 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+    if (
+      window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return;
     }
 

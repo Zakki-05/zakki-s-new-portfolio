@@ -29,9 +29,10 @@ export default function EducationEditorial() {
               key={edu.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="rounded-3xl bg-black border border-white/10 p-8 sm:p-10 space-y-6 flex flex-col justify-between hover:border-goldAccent/40 transition-colors shadow-2xl"
+              className="rounded-3xl bg-black border border-white/10 p-8 sm:p-10 space-y-6 flex flex-col justify-between hover:border-goldAccent/50 transition-all shadow-2xl hover:shadow-[0_12px_30px_rgba(185,163,106,0.08)]"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 font-mono text-xs text-goldAccent">

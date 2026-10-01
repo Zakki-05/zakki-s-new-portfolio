@@ -133,10 +133,19 @@ export default function ContactDramatic() {
         <div className="grid lg:grid-cols-12 gap-10 items-start">
           
           {/* Left Info Links */}
-          <div className="lg:col-span-5 space-y-4 font-mono text-xs">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 space-y-4 font-mono text-xs"
+          >
             
             {/* EMAIL */}
-            <div className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/40 transition-colors">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
+            >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Mail className="w-4 h-4 text-goldAccent" /> EMAIL
               </span>
@@ -156,10 +165,13 @@ export default function ContactDramatic() {
                   {copiedText === 'email' ? <CheckCircle2 className="w-4 h-4 text-goldAccent" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* PHONE */}
-            <div className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/40 transition-colors">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
+            >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Phone className="w-4 h-4 text-goldAccent" /> PHONE
               </span>
@@ -179,10 +191,13 @@ export default function ContactDramatic() {
                   {copiedText === 'phone' ? <CheckCircle2 className="w-4 h-4 text-goldAccent" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* LINKEDIN */}
-            <div className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/40 transition-colors">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
+            >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Linkedin className="w-4 h-4 text-goldAccent" /> LINKEDIN
               </span>
@@ -195,10 +210,13 @@ export default function ContactDramatic() {
                 <span>linkedin.com/in/mohammed-zakki-adnan-p</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-goldAccent" />
               </a>
-            </div>
+            </motion.div>
 
             {/* GITHUB */}
-            <div className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/40 transition-colors">
+            <motion.div 
+              whileHover={{ y: -3 }}
+              className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
+            >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Github className="w-4 h-4 text-goldAccent" /> GITHUB
               </span>
@@ -211,9 +229,9 @@ export default function ContactDramatic() {
                 <span>github.com/Zakki-05</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-goldAccent" />
               </a>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* Right Message Form with Web3Forms */}
           <div className="lg:col-span-7 rounded-3xl bg-black border border-white/10 p-8 sm:p-10 space-y-6 shadow-2xl">
@@ -304,7 +322,9 @@ export default function ContactDramatic() {
                 </div>
               )}
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={status === 'loading'}
                 data-cursor="button"
@@ -321,7 +341,7 @@ export default function ContactDramatic() {
                     <Send className="w-4 h-4" />
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
           </div>
 

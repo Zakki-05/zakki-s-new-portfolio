@@ -23,15 +23,19 @@ export default function Experience() {
         </div>
 
         {/* Experience Cards Stack */}
-        <div className="space-y-10">
+        <div className="space-y-10 relative">
+          {/* Vertical Timeline Connector Line */}
+          <div className="hidden lg:block absolute left-8 top-8 bottom-8 w-[2px] bg-gradient-to-b from-goldAccent/40 via-white/10 to-transparent pointer-events-none" />
+
           {experienceData.map((exp, idx) => (
             <motion.div
               key={exp.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="rounded-3xl bg-black border border-white/10 p-8 sm:p-12 space-y-6 hover:border-goldAccent/40 transition-colors shadow-2xl"
+              whileHover={{ y: -4 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.12 }}
+              className="relative rounded-3xl bg-black border border-white/10 p-8 sm:p-12 space-y-6 hover:border-goldAccent/50 transition-all shadow-2xl hover:shadow-[0_12px_30px_rgba(185,163,106,0.08)]"
             >
               {/* Header Info: ROLE, COMPANY, LOCATION, DATES */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">

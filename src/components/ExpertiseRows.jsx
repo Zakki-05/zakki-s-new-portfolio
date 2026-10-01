@@ -37,7 +37,7 @@ export default function ExpertiseRows() {
           </p>
         </div>
 
-        {/* 5 Clean Categorized Cards (No Percentage Bars) */}
+        {/* 5 Clean Categorized Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillsCategories.map((group, idx) => {
             const IconComp = categoryIcons[group.category] || Cpu;
@@ -46,15 +46,16 @@ export default function ExpertiseRows() {
                 key={group.category}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="rounded-3xl bg-black border border-white/10 p-7 space-y-5 hover:border-goldAccent/40 transition-all shadow-xl flex flex-col justify-between"
+                whileHover={{ y: -5 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="group rounded-3xl bg-black border border-white/10 p-7 space-y-5 hover:border-goldAccent/50 transition-all shadow-xl hover:shadow-[0_10px_25px_rgba(185,163,106,0.08)] flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   {/* Category Header */}
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <span className="font-mono text-xs font-bold text-goldAccent uppercase tracking-widest flex items-center gap-2">
-                      <IconComp className="w-4 h-4 text-goldAccent" />
+                      <IconComp className="w-4 h-4 text-goldAccent group-hover:scale-110 group-hover:rotate-6 transition-transform" />
                       {group.category}
                     </span>
                     <span className="text-[10px] font-mono text-mutedText">{group.skills.length} TECHS</span>
@@ -65,7 +66,7 @@ export default function ExpertiseRows() {
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold hover:border-goldAccent/40 transition-colors"
+                        className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold hover:border-goldAccent/40 hover:text-goldAccent transition-all hover:scale-[1.02]"
                       >
                         {skill}
                       </span>
