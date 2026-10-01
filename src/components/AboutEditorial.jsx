@@ -1,15 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, Code2, Sparkles, GraduationCap, Rocket, Terminal, Award, Server } from 'lucide-react';
+import { MapPin, Code2, Sparkles, GraduationCap, Terminal, Award, Server, Box } from 'lucide-react';
 import { personalData } from '../data/portfolioData';
 
 export default function AboutEditorial() {
   const [imageError, setImageError] = useState(false);
   const containerRef = useRef(null);
   
-  // 3D Card Hover Tilt State
+  // 3D Interactive Card Hover Tilt State
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
+  const [translateZ, setTranslateZ] = useState(0);
   const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
 
   // Scroll animations
@@ -29,17 +30,20 @@ export default function AboutEditorial() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rX = ((y - centerY) / centerY) * -10;
-    const rY = ((x - centerX) / centerX) * 10;
+    // Enhanced 3D Tilt calculation
+    const rX = ((y - centerY) / centerY) * -16; 
+    const rY = ((x - centerX) / centerX) * 16;
 
     setRotateX(rX);
     setRotateY(rY);
+    setTranslateZ(25);
     setGlarePos({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
   };
 
   const handleMouseLeave = () => {
     setRotateX(0);
     setRotateY(0);
+    setTranslateZ(0);
   };
 
   const cardStats = [
@@ -53,7 +57,7 @@ export default function AboutEditorial() {
     <section 
       ref={containerRef}
       id="about" 
-      className="relative py-24 sm:py-32 bg-primaryBlack text-primaryText overflow-hidden editorial-grid"
+      className="relative py-24 sm:py-32 bg-primaryBlack text-primaryText overflow-hidden editorial-grid select-none"
     >
       
       {/* Background Animated Glow Elements */}
@@ -87,7 +91,7 @@ export default function AboutEditorial() {
         {/* Asymmetric 2-Column Grid */}
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: 3D Interactive Portrait Card */}
+          {/* Left Column: Interactive 3D Portrait Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -95,31 +99,42 @@ export default function AboutEditorial() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 relative perspective-1000"
           >
-            {/* Floating Degree Badge */}
-            <div className="absolute -top-4 -right-3 z-30 px-3.5 py-1.5 rounded-xl bg-black/95 border border-goldAccent text-goldAccent font-mono text-xs font-bold uppercase tracking-wider shadow-2xl flex items-center gap-1.5 backdrop-blur-md">
+            {/* Floating 3D Degree Badge */}
+            <motion.div 
+              style={{
+                transform: `rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg) translateZ(45px)`,
+                transition: 'transform 0.15s ease-out'
+              }}
+              className="absolute -top-4 -right-3 z-30 px-3.5 py-1.5 rounded-xl bg-black/95 border border-goldAccent text-goldAccent font-mono text-xs font-bold uppercase tracking-wider shadow-[0_10px_25px_rgba(185,163,106,0.25)] flex items-center gap-1.5 backdrop-blur-md pointer-events-none"
+            >
               <Award className="w-4 h-4 text-goldAccent" />
               <span>BCA — ISLAMIAH COLLEGE</span>
-            </div>
+            </motion.div>
 
+            {/* Main 3D Perspective Card Container */}
             <motion.div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{
-                transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+                transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`,
+                transformStyle: 'preserve-3d',
                 transition: 'transform 0.15s ease-out'
               }}
-              className="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none rounded-3xl bg-black/90 border border-white/15 p-6 flex flex-col justify-between shadow-2xl group cursor-pointer select-none"
+              className="relative aspect-[3/4] max-w-sm mx-auto lg:max-w-none rounded-3xl bg-black/90 border border-white/15 p-6 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.8)] group cursor-pointer"
             >
-              {/* Dynamic Glare */}
+              {/* Dynamic 3D Glare Spotlight */}
               <div 
-                className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100 z-20"
                 style={{
-                  background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(185, 163, 106, 0.15) 0%, transparent 60%)`
+                  background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(185, 163, 106, 0.22) 0%, transparent 65%)`
                 }}
               />
 
               {/* Top Card Bar */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
+              <div 
+                style={{ transform: 'translateZ(20px)' }}
+                className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10"
+              >
                 <span className="font-mono text-[11px] text-goldAccent font-bold uppercase tracking-widest flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5" />
                   MOHAMMED ZAKKI ADNAAN
@@ -127,16 +142,19 @@ export default function AboutEditorial() {
                 <span className="w-2.5 h-2.5 rounded-full bg-goldAccent animate-pulse" />
               </div>
 
-              {/* Center Portrait Frame */}
-              <div className="my-auto py-4 relative z-10 text-center">
-                <div className="relative w-52 h-68 sm:w-60 sm:h-76 mx-auto rounded-2xl p-1 bg-gradient-to-tr from-goldAccent/40 via-white/10 to-goldAccent/40 shadow-2xl group-hover:from-goldAccent group-hover:to-goldAccent transition-all duration-500">
+              {/* Center 3D Portrait Frame */}
+              <div 
+                style={{ transform: 'translateZ(35px)' }}
+                className="my-auto py-4 relative z-10 text-center transition-transform duration-300"
+              >
+                <div className="relative w-52 h-68 sm:w-60 sm:h-76 mx-auto rounded-2xl p-1 bg-gradient-to-tr from-goldAccent/50 via-white/15 to-goldAccent/50 shadow-2xl group-hover:from-goldAccent group-hover:to-goldAccent transition-all duration-500">
                   <div className="w-full h-full rounded-[14px] overflow-hidden bg-primaryBlack relative flex items-center justify-center">
                     {!imageError ? (
                       <img 
                         src="/profile.jpg" 
                         alt="Mohammed Zakki Adnaan"
                         onError={() => setImageError(true)}
-                        className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-[1.02] group-hover:scale-105"
+                        className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-[1.02] group-hover:scale-108"
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center text-goldAccent font-headline text-6xl font-black bg-primaryBlack">
@@ -153,7 +171,10 @@ export default function AboutEditorial() {
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[11px] text-mutedText uppercase relative z-10">
+              <div 
+                style={{ transform: 'translateZ(20px)' }}
+                className="border-t border-white/10 pt-4 flex items-center justify-between font-mono text-[11px] text-mutedText uppercase relative z-10"
+              >
                 <span>ISLAMIAH COLLEGE (AUTONOMOUS)</span>
                 <span className="text-goldAccent font-bold bg-goldAccent/10 px-2 py-0.5 rounded border border-goldAccent/30">BCA 2023–2026</span>
               </div>
@@ -191,7 +212,7 @@ export default function AboutEditorial() {
                 {["React.js", "JavaScript (ES6+)", "Python", "Django", "FastAPI", "MySQL", "REST APIs", "Tailwind CSS", "Bootstrap", "Git & GitHub"].map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-primaryText font-semibold hover:border-goldAccent/40 hover:text-goldAccent transition-all hover:scale-105"
                   >
                     {tech}
                   </span>
@@ -203,7 +224,7 @@ export default function AboutEditorial() {
 
         </div>
 
-        {/* Bottom 4-Card Info Grid */}
+        {/* Bottom 4-Card Info Grid with 3D Hover Lift */}
         <div className="pt-8 border-t border-white/10 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
             {cardStats.map((item, idx) => {
@@ -213,9 +234,10 @@ export default function AboutEditorial() {
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-2 relative overflow-hidden"
+                  className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-2 relative overflow-hidden hover:border-goldAccent/40 transition-all shadow-lg hover:shadow-[0_10px_25px_rgba(185,163,106,0.1)]"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-goldAccent font-bold uppercase tracking-widest">

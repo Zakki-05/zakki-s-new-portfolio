@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, FileText, FolderGit2, Sparkles } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -11,6 +11,11 @@ export default function HeroLight({ onOpenResume }) {
   const containerRef = useRef(null);
   const headlineRef = useRef(null);
   const { scrollY } = useScroll();
+
+  // 3D Mouse Parallax Tilt State
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
 
   // Scroll animations for fallback motion
   const textScale = useTransform(scrollY, [0, 400], [1, 0.95]);
@@ -38,20 +43,64 @@ export default function HeroLight({ onOpenResume }) {
     return () => ctx.revert();
   }, []);
 
+  const handleMouseMove = (e) => {
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rX = ((y - centerY) / centerY) * -8;
+    const rY = ((x - centerX) / centerX) * 8;
+
+    setRotateX(rX);
+    setRotateY(rY);
+    setGlarePos({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   return (
     <section 
       ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       id="home" 
-      className="relative min-h-screen bg-heroBg text-heroText flex flex-col justify-between p-6 sm:p-12 pt-24 sm:pt-28 pb-8 overflow-hidden editorial-grid-cream select-none"
+      className="relative min-h-screen bg-heroBg text-heroText flex flex-col justify-between p-6 sm:p-12 pt-24 sm:pt-28 pb-8 overflow-hidden editorial-grid-cream select-none perspective-1000"
     >
+      {/* Dynamic 3D Glare Spotlight */}
+      <div 
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-30 z-0"
+        style={{
+          background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(185, 163, 106, 0.18) 0%, transparent 60%)`
+        }}
+      />
+
       {/* Background Subtle Watermark */}
-      <div className="absolute top-10 left-8 opacity-[0.03] font-headline text-[18vw] leading-none pointer-events-none select-none text-heroText">
+      <div 
+        style={{ transform: `rotateX(${rotateX * 0.3}deg) rotateY(${rotateY * 0.3}deg) translateZ(-50px)` }}
+        className="absolute top-10 left-8 opacity-[0.03] font-headline text-[18vw] leading-none pointer-events-none select-none text-heroText"
+      >
         ZAKKI
       </div>
 
-      {/* Main Hero Container */}
+      {/* Main Hero Container with 3D Parallax */}
       <motion.div 
-        style={{ scale: textScale, y: textY, opacity: textOpacity }}
+        style={{ 
+          scale: textScale, 
+          y: textY, 
+          opacity: textOpacity,
+          transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.15s ease-out'
+        }}
         className="my-auto space-y-6 relative z-10 max-w-6xl"
       >
         <motion.div
@@ -61,7 +110,10 @@ export default function HeroLight({ onOpenResume }) {
           className="space-y-4"
         >
           {/* Availability Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-heroText/5 border border-heroText/15 font-mono text-xs font-bold uppercase tracking-widest text-heroText">
+          <div 
+            style={{ transform: 'translateZ(25px)' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-heroText/5 border border-heroText/15 font-mono text-xs font-bold uppercase tracking-widest text-heroText shadow-sm"
+          >
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
@@ -70,7 +122,7 @@ export default function HeroLight({ onOpenResume }) {
           </div>
 
           {/* Name & Primary Professional Title */}
-          <div className="space-y-1">
+          <div className="space-y-1" style={{ transform: 'translateZ(35px)' }}>
             <h1 className="font-headline text-3xl sm:text-5xl lg:text-6xl font-black text-heroText uppercase tracking-wider">
               {personalData.shortName}
             </h1>
@@ -88,36 +140,49 @@ export default function HeroLight({ onOpenResume }) {
           </div>
 
           {/* Professional Description */}
-          <p className="text-heroText/80 font-sans text-base sm:text-xl max-w-2xl leading-relaxed pt-2">
+          <p 
+            style={{ transform: 'translateZ(20px)' }}
+            className="text-heroText/80 font-sans text-base sm:text-xl max-w-2xl leading-relaxed pt-2"
+          >
             I build responsive, scalable web applications using React.js, Python, Django, FastAPI and modern web technologies.
           </p>
 
           {/* Action Buttons: View Projects & Download Resume */}
-          <div className="flex flex-wrap items-center gap-4 pt-4 font-mono text-xs">
-            <a
+          <div 
+            style={{ transform: 'translateZ(30px)' }}
+            className="flex flex-wrap items-center gap-4 pt-4 font-mono text-xs"
+          >
+            <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
               href="#work"
               data-cursor="button"
               className="px-6 py-3.5 rounded-full font-bold text-heroBg bg-heroText hover:bg-goldAccent hover:text-heroBg transition-all uppercase tracking-widest shadow-md flex items-center gap-2"
             >
               <FolderGit2 className="w-4 h-4" />
               <span>VIEW PROJECTS</span>
-            </a>
+            </motion.a>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
               onClick={onOpenResume}
               data-cursor="button"
               className="px-6 py-3.5 rounded-full font-bold text-heroText bg-heroText/5 hover:bg-heroText/10 border border-heroText/20 hover:border-goldAccent transition-all uppercase tracking-widest flex items-center gap-2"
             >
               <FileText className="w-4 h-4 text-goldAccent" />
               <span>DOWNLOAD RESUME</span>
-            </button>
+            </motion.button>
           </div>
 
           {/* Key Technologies Cloud */}
-          <div className="pt-4 flex flex-wrap items-center gap-2 font-mono text-[11px] text-heroText/70">
+          <div 
+            style={{ transform: 'translateZ(15px)' }}
+            className="pt-4 flex flex-wrap items-center gap-2 font-mono text-[11px] text-heroText/70"
+          >
             <span className="font-bold uppercase text-heroText/90 mr-1">STACK:</span>
             {["React.js", "Python", "Django", "FastAPI", "MySQL", "Tailwind CSS", "REST APIs"].map((tech) => (
-              <span key={tech} className="px-2.5 py-1 rounded bg-heroText/5 border border-heroText/10 font-semibold">
+              <span key={tech} className="px-2.5 py-1 rounded bg-heroText/5 border border-heroText/10 font-semibold hover:border-heroText/30 transition-colors">
                 {tech}
               </span>
             ))}
@@ -131,6 +196,7 @@ export default function HeroLight({ onOpenResume }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.3 }}
+        style={{ transform: `rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg) translateZ(20px)` }}
         className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end pt-4 border-t border-heroText/15 relative z-10 font-mono text-xs text-heroText/80"
       >
         {/* Bottom-left */}
@@ -157,7 +223,9 @@ export default function HeroLight({ onOpenResume }) {
 
         {/* Bottom-right Rotating Circular CTA */}
         <div className="md:col-span-4 flex flex-row md:flex-col items-center md:items-end justify-between gap-2">
-          <a
+          <motion.a
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
             href="#contact"
             data-cursor="cta"
             aria-label="Let's Work Together"
@@ -178,7 +246,7 @@ export default function HeroLight({ onOpenResume }) {
               </svg>
             </div>
             <ArrowUpRight className="w-5 h-5 text-heroText group-hover:text-heroBg group-hover:rotate-45 transition-transform" />
-          </a>
+          </motion.a>
 
           <div className="text-right">
             <p className="font-bold text-[10px] uppercase tracking-widest text-heroText">LOCATION</p>

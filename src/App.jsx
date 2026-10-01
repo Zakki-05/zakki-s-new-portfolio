@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
+import ThreeBackground from './components/ThreeBackground';
 import EditorialNav from './components/EditorialNav';
 import HeroLight from './components/HeroLight';
 import AboutEditorial from './components/AboutEditorial';
@@ -49,6 +50,9 @@ export default function App() {
 
       {/* Desktop Magnetic Follower Cursor */}
       <CustomCursor />
+
+      {/* Interactive 3D WebGL Background Canvas */}
+      <ThreeBackground />
 
       {/* Scroll Progress Bar */}
       <ScrollProgress />
