@@ -4,7 +4,7 @@ import { ArrowUpRight, Send, CheckCircle2, AlertCircle, Copy, Mail, Phone, Githu
 import { personalData } from '../data/portfolioData';
 
 export default function ContactDramatic() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: 'Job Opportunity', message: '' });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [statusMessage, setStatusMessage] = useState('');
@@ -24,6 +24,7 @@ export default function ContactDramatic() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errs.email = 'Please enter a valid email address';
     }
+    if (!formData.subject) errs.subject = 'Inquiry type is required';
     if (!formData.message.trim()) errs.message = 'Message cannot be empty';
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -38,11 +39,11 @@ export default function ContactDramatic() {
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || personalData.web3formsKey || '';
 
     if (!accessKey || accessKey.trim() === '' || accessKey === 'your_web3forms_access_key_here') {
-      const mailtoUrl = `mailto:${personalData.email}?subject=${encodeURIComponent(`Portfolio Message from ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+      const mailtoUrl = `mailto:${personalData.email}?subject=${encodeURIComponent(`[${formData.subject}] Message from ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nInquiry Type: ${formData.subject}\n\nMessage:\n${formData.message}`)}`;
       window.open(mailtoUrl, '_blank');
       setStatus('success');
       setStatusMessage('Web3Forms key is not configured. Opened your email app to send the message directly!');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: 'Job Opportunity', message: '' });
       setTimeout(() => setStatus('idle'), 7000);
       return;
     }
@@ -58,9 +59,9 @@ export default function ContactDramatic() {
           access_key: accessKey,
           name: formData.name,
           email: formData.email,
-          message: formData.message,
-          subject: `New Portfolio Message from ${formData.name}`,
-          from_name: 'Mohammed Zakki Adnaan Portfolio',
+          subject: `[${formData.subject}] Message from ${formData.name}`,
+          message: `Inquiry Type: ${formData.subject}\n\nMessage:\n${formData.message}`,
+          from_name: 'Mohammed Zakki Adnaan',
         }),
       });
 
@@ -69,7 +70,7 @@ export default function ContactDramatic() {
       if (result.success) {
         setStatus('success');
         setStatusMessage('Thank you! Your message has been sent successfully.');
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', subject: 'Job Opportunity', message: '' });
         setTimeout(() => setStatus('idle'), 6000);
       } else {
         setStatus('error');
@@ -84,7 +85,7 @@ export default function ContactDramatic() {
   return (
     <section id="contact" className="py-24 sm:py-32 bg-primaryBlack text-primaryText relative overflow-hidden border-t border-white/10 editorial-grid">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10 space-y-16">
-        
+
         {/* Large Headline & Description */}
         <div className="text-center space-y-4 max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest">
@@ -131,18 +132,18 @@ export default function ContactDramatic() {
 
         {/* 2-Column Contact Info & Form */}
         <div className="grid lg:grid-cols-12 gap-10 items-start">
-          
+
           {/* Left Info Links */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 space-y-4 font-mono text-xs"
           >
-            
+
             {/* EMAIL */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -3 }}
               className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
             >
@@ -150,14 +151,14 @@ export default function ContactDramatic() {
                 <Mail className="w-4 h-4 text-goldAccent" /> EMAIL
               </span>
               <div className="flex items-center gap-2">
-                <a 
-                  href={`mailto:${personalData.email}`} 
+                <a
+                  href={`mailto:${personalData.email}`}
                   className="font-bold text-primaryText hover:text-goldAccent transition-colors text-xs sm:text-sm"
                 >
                   {personalData.email}
                 </a>
-                <button 
-                  onClick={() => handleCopy(personalData.email, 'email')} 
+                <button
+                  onClick={() => handleCopy(personalData.email, 'email')}
                   className="text-mutedText hover:text-goldAccent p-1"
                   title="Copy email address"
                   aria-label="Copy email address"
@@ -168,7 +169,7 @@ export default function ContactDramatic() {
             </motion.div>
 
             {/* PHONE */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -3 }}
               className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
             >
@@ -176,14 +177,14 @@ export default function ContactDramatic() {
                 <Phone className="w-4 h-4 text-goldAccent" /> PHONE
               </span>
               <div className="flex items-center gap-2">
-                <a 
-                  href={`tel:${personalData.phone}`} 
+                <a
+                  href={`tel:${personalData.phone}`}
                   className="font-bold text-primaryText hover:text-goldAccent transition-colors text-xs sm:text-sm"
                 >
                   {personalData.phone}
                 </a>
-                <button 
-                  onClick={() => handleCopy(personalData.phone, 'phone')} 
+                <button
+                  onClick={() => handleCopy(personalData.phone, 'phone')}
                   className="text-mutedText hover:text-goldAccent p-1"
                   title="Copy phone number"
                   aria-label="Copy phone number"
@@ -194,17 +195,17 @@ export default function ContactDramatic() {
             </motion.div>
 
             {/* LINKEDIN */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -3 }}
               className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
             >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Linkedin className="w-4 h-4 text-goldAccent" /> LINKEDIN
               </span>
-              <a 
-                href={personalData.linkedinUrl} 
-                target="_blank" 
-                rel="noreferrer" 
+              <a
+                href={personalData.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="font-bold text-primaryText hover:text-goldAccent transition-colors flex items-center gap-1 text-xs sm:text-sm"
               >
                 <span>linkedin.com/in/mohammed-zakki-adnan-p</span>
@@ -213,17 +214,17 @@ export default function ContactDramatic() {
             </motion.div>
 
             {/* GITHUB */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -3 }}
               className="p-5 rounded-2xl bg-black border border-white/10 flex items-center justify-between hover:border-goldAccent/50 transition-all shadow-md"
             >
               <span className="text-mutedText uppercase flex items-center gap-2">
                 <Github className="w-4 h-4 text-goldAccent" /> GITHUB
               </span>
-              <a 
-                href={personalData.githubUrl} 
-                target="_blank" 
-                rel="noreferrer" 
+              <a
+                href={personalData.githubUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="font-bold text-primaryText hover:text-goldAccent transition-colors flex items-center gap-1 text-xs sm:text-sm"
               >
                 <span>github.com/Zakki-05</span>
@@ -255,9 +256,8 @@ export default function ContactDramatic() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Recruiter / Hiring Manager"
-                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${
-                    errors.name ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
-                  } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all`}
+                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${errors.name ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
+                    } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all`}
                 />
                 {errors.name && <p className="text-red-400 text-[11px] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.name}</p>}
               </div>
@@ -272,11 +272,29 @@ export default function ContactDramatic() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="recruiter@company.com"
-                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${
-                    errors.email ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
-                  } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all`}
+                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${errors.email ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
+                    } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all`}
                 />
                 {errors.email && <p className="text-red-400 text-[11px] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}
+              </div>
+
+              <div className="space-y-1.5 font-mono text-xs">
+                <label htmlFor="contact-subject" className="text-mutedText uppercase tracking-wider block font-bold">
+                  INQUIRY TYPE / SUBJECT <span className="text-goldAccent">*</span>
+                </label>
+                <select
+                  id="contact-subject"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${errors.subject ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
+                    } text-primaryText text-sm focus:outline-none transition-all cursor-pointer accent-goldAccent`}
+                >
+                  <option value="Job Opportunity" className="bg-primaryBlack text-primaryText">Job Opportunity / Full-time</option>
+                  <option value="Freelance Project" className="bg-primaryBlack text-primaryText">Freelance / Contract Project</option>
+                  <option value="Technical Consultation" className="bg-primaryBlack text-primaryText">Technical Consultation</option>
+                  <option value="General Inquiry" className="bg-primaryBlack text-primaryText">General Inquiry</option>
+                </select>
+                {errors.subject && <p className="text-red-400 text-[11px] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.subject}</p>}
               </div>
 
               <div className="space-y-1.5 font-mono text-xs">
@@ -289,9 +307,8 @@ export default function ContactDramatic() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Hello Mohammed, we'd like to discuss a developer opportunity..."
-                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${
-                    errors.message ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
-                  } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all resize-none`}
+                  className={`w-full p-4 rounded-2xl bg-primaryBlack border ${errors.message ? 'border-red-500' : 'border-white/10 focus:border-goldAccent'
+                    } text-primaryText placeholder-mutedText/40 text-sm focus:outline-none transition-all resize-none`}
                 />
                 {errors.message && <p className="text-red-400 text-[11px] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.message}</p>}
               </div>
