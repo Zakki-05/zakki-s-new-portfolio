@@ -13,7 +13,7 @@ export const personalData = {
   githubUrl: "https://github.com/Zakki-05",
   linkedinUrl: "https://www.linkedin.com/in/mohammed-zakki-adnan-p/",
   resumeUrl: "#resume-modal",
-  web3formsKey: "", // Obtain free key from https://web3forms.com/ and paste here or in .env (VITE_WEB3FORMS_ACCESS_KEY)
+  web3formsKey: "fce8e13e-66bb-4120-93ec-853bf96a629c",
   approach: [
     { step: "Architect", desc: "Design component hierarchy, normalized DB schemas, and REST endpoints." },
     { step: "Build", desc: "Develop responsive React frontends, custom hooks, and Django server logic." },

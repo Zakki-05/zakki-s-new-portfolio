@@ -38,8 +38,12 @@ export default function ContactDramatic() {
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || personalData.web3formsKey || '';
 
     if (!accessKey || accessKey.trim() === '' || accessKey === 'your_web3forms_access_key_here') {
-      setStatus('error');
-      setStatusMessage('Web3Forms Access Key is not configured. Please add your key to the .env file (VITE_WEB3FORMS_ACCESS_KEY).');
+      const mailtoUrl = `mailto:${personalData.email}?subject=${encodeURIComponent(`Portfolio Message from ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+      window.open(mailtoUrl, '_blank');
+      setStatus('success');
+      setStatusMessage('Web3Forms key is not configured. Opened your email app to send the message directly!');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 7000);
       return;
     }
 
