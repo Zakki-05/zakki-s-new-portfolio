@@ -37,6 +37,12 @@ export default function ContactDramatic() {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || personalData.web3formsKey || '';
 
+    if (!accessKey || accessKey.trim() === '' || accessKey === 'your_web3forms_access_key_here') {
+      setStatus('error');
+      setStatusMessage('Web3Forms Access Key is not configured. Please add your key to the .env file (VITE_WEB3FORMS_ACCESS_KEY).');
+      return;
+    }
+
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -277,9 +283,20 @@ export default function ContactDramatic() {
               )}
 
               {status === 'error' && (
-                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/40 text-red-400 text-xs font-mono flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-                  <span>{statusMessage}</span>
+                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/40 text-red-400 text-xs font-mono space-y-2">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                    <span>{statusMessage}</span>
+                  </div>
+                  <div className="pl-6 text-[11px] text-mutedText">
+                    Alternatively, send an email directly to:{' '}
+                    <a
+                      href={`mailto:${personalData.email}?subject=${encodeURIComponent(`Portfolio Contact from ${formData.name || 'Visitor'}`)}&body=${encodeURIComponent(formData.message)}`}
+                      className="text-goldAccent underline font-bold"
+                    >
+                      {personalData.email}
+                    </a>
+                  </div>
                 </div>
               )}
 
